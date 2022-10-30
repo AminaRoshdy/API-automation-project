@@ -1,0 +1,507 @@
+{
+	"info": {
+		"_postman_id": "19296018-41b6-4968-a360-f827b35a4522",
+		"name": "Trello API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15429911"
+	},
+	"item": [
+		{
+			"name": "Create new Board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"console.log(pm.response.json().prefs.permissionLevel)\r",
+							"console.log(pm.response.json().prefs.canBePublic)\r",
+							"console.log(pm.response.json().prefs.canInvite)\r",
+							"\r",
+							"pm.test(\"check status code is 200\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.equal(200)\r",
+							"})\r",
+							"\r",
+							"//  verify response time less than 1000 ms\r",
+							"pm.test(\"verify response time less than 200 ms\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"check the value of permissionLevel is private\", function(){\r",
+							"    pm.expect(pm.response.json().prefs.permissionLevel).to.be.equal(\"private\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"check the value of canBePublic is true\", function(){\r",
+							"    pm.expect(pm.response.json().prefs.canBePublic).to.be.equal(true)\r",
+							"})\r",
+							"pm.test(\"check the value of canInvite is true\", function(){\r",
+							"    pm.expect(pm.response.json().prefs.canInvite).to.be.equal(true)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{TrelloBaseURL}}/1/boards/?name=APIBoard&key={{Key}}&token={{Token}}",
+					"host": [
+						"{{TrelloBaseURL}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "APIBoard",
+							"description": "The name of new Board"
+						},
+						{
+							"key": "key",
+							"value": "{{Key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All  Active Boards",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var objectResponse= pm.response.json();\r",
+							"var NumberOfBoards= objectResponse.idBoards.length;\r",
+							"var firstID= objectResponse.idBoards[0];\r",
+							"var lastID= objectResponse.idBoards[NumberOfBoards-1];\r",
+							"console.log(\"First board ID=  : \"+firstID);\r",
+							"console.log(\"LAST  board ID=  : \"+lastID);\r",
+							"console.log(\"Total Number of Active boards = \"+NumberOfBoards)\r",
+							"\r",
+							"//check status code= 200\r",
+							"pm.test(\"check status code is 200\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.equal(200)\r",
+							"});\r",
+							"\r",
+							"//  verify response time less than 1000 ms\r",
+							"pm.test(\"verify response time less than 200 ms\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000)\r",
+							"});\r",
+							"\r",
+							"//check number of active Boards above 1\r",
+							"pm.test(\"check number of created Boards is above 1\",function(){\r",
+							"    pm.expect(NumberOfBoards).to.be.above(1)\r",
+							"})\r",
+							"\r",
+							"// assign value to variables (firstBoardID ,LastBoardID)\r",
+							"if(NumberOfBoards >=1)\r",
+							"{\r",
+							"  pm.environment.set(\"FirstBoardID\",firstID);\r",
+							"  pm.environment.set(\"LastBoardID\",lastID);\r",
+							"}\r",
+							"\r",
+							"// get a random value for BoardId\r",
+							"var randomIndex= Math.floor(Math.random()*NumberOfBoards);\r",
+							"console.log(\"randomIndex = \"+randomIndex);\r",
+							"console.log(\"Random board id = \"+objectResponse.idBoards[randomIndex]);\r",
+							"if(randomIndex==NumberOfBoards)\r",
+							"{\r",
+							"    pm.environment.set(\"randomBoardID\", objectResponse.idBoards[randomIndex-1]);\r",
+							"}\r",
+							"pm.environment.set(\"randomBoardID\", objectResponse.idBoards[randomIndex]);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloBaseURL}}/1/members/me?boards=open&key={{Key}}&token={{Token}}",
+					"host": [
+						"{{TrelloBaseURL}}"
+					],
+					"path": [
+						"1",
+						"members",
+						"me"
+					],
+					"query": [
+						{
+							"key": "boards",
+							"value": "open"
+						},
+						{
+							"key": "key",
+							"value": "{{Key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"check status code is 200\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.equal(200)\r",
+							"})\r",
+							"\r",
+							"//  verify response time less than 1000 ms\r",
+							"pm.test(\"verify response time less than 200 ms\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000)\r",
+							"});\r",
+							"\r",
+							"//  Verify keys exist in the response \r",
+							"console.log(Object.keys(pm.response.json()))\r",
+							"pm.test(\"verify response contains keys\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"id\")\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"name\")\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"idBoard\")\r",
+							"\r",
+							"});\r",
+							"\r",
+							"// Check the values of paramter closed\r",
+							"pm.test(\"check the default value of closed \",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.json().closed).to.equal(false)\r",
+							"\r",
+							"});\r",
+							"\r",
+							"// Check  limits are empty object\r",
+							"pm.test(\"check limits are empty object \",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.json().limits).to.be.empty\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloBaseURL}}/1/lists?name=New list ( In progress tasks )&idBoard={{FirstBoardID}}&key={{Key}}&token={{Token}}",
+					"host": [
+						"{{TrelloBaseURL}}"
+					],
+					"path": [
+						"1",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "New list ( In progress tasks )"
+						},
+						{
+							"key": "idBoard",
+							"value": "{{FirstBoardID}}"
+						},
+						{
+							"key": "key",
+							"value": "{{Key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Lists found on a First Board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var NumberOfListsOnBoard= pm.response.json().length;\r",
+							"var firstListID = pm.response.json()[0].id;\r",
+							"var lastListID =pm.response.json()[NumberOfListsOnBoard-1].id;\r",
+							"console.log(\"Number of lists on Board =\"+ NumberOfListsOnBoard);\r",
+							"console.log(\"ID od first list on board=\"+ firstListID);\r",
+							"console.log(\"ID od last list on board=\"+ lastListID);\r",
+							"\r",
+							"if(NumberOfListsOnBoard >0)\r",
+							"{\r",
+							"    pm.environment.set(\"LastListID\", lastListID);\r",
+							"    pm.environment.set(\"FirstListID\", firstListID);\r",
+							"}\r",
+							"\r",
+							"// verify that the number of lists the response more than 3\r",
+							"pm.test(\"check Number of lists at least 3 \", function(){\r",
+							"    pm.expect(NumberOfListsOnBoard).to.be.at.least(3)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloBaseURL}}/1/boards/{{FirstBoardID}}/lists?key={{Key}}&token={{Token}}",
+					"host": [
+						"{{TrelloBaseURL}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{FirstBoardID}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{Key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Archive or unarchive a list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"check status code is 200\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.equal(200)\r",
+							"})\r",
+							"\r",
+							"//  verify response time less than 1000 ms\r",
+							"pm.test(\"verify response time less than 200 ms\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000)\r",
+							"});\r",
+							"\r",
+							"var queryparmterValue = pm.environment.get(\"QueryArchiveValue\");\r",
+							"console.log(\"value of current query paramter: \"+ queryparmterValue);\r",
+							"\r",
+							"// check the list is archived syccessfully \r",
+							"if (queryparmterValue == \"true\")\r",
+							"{\r",
+							"    pm.test(\"check respose value of closed is true\",function(){\r",
+							"        pm.expect(pm.response.json().closed).to.be.equal(true)\r",
+							"    });\r",
+							"\r",
+							"}\r",
+							"\r",
+							"// check the list is unarchived syccessfully \r",
+							"else if (queryparmterValue == \"false\")\r",
+							"{\r",
+							"  pm.test(\"check respose value of closed is false\",function(){\r",
+							"        pm.expect(pm.response.json().closed).to.be.equal(false)\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"//check the value of respose header 'Set-Cookie\r",
+							"  pm.test(\"check value of respose header 'Set-Cookie' \",function(){\r",
+							"        pm.expect(pm.response.headers.get(\"Set-Cookie\")).to.contain(\"AisEnterpriseAdmin%3Dfalse\")\r",
+							"    });\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{TrelloBaseURL}}/1/lists/{{LastListID}}/closed?key={{Key}}&token={{Token}}&value={{QueryArchiveValue}}",
+					"host": [
+						"{{TrelloBaseURL}}"
+					],
+					"path": [
+						"1",
+						"lists",
+						"{{LastListID}}",
+						"closed"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{Key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						},
+						{
+							"key": "value",
+							"value": "{{QueryArchiveValue}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new Card",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloBaseURL}}/1/cards?idList={{FirstListID}}&key={{Key}}&token={{Token}}&name=Third Card ",
+					"host": [
+						"{{TrelloBaseURL}}"
+					],
+					"path": [
+						"1",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "idList",
+							"value": "{{FirstListID}}"
+						},
+						{
+							"key": "key",
+							"value": "{{Key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						},
+						{
+							"key": "name",
+							"value": "Third Card "
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a random Board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//check status code= 200\r",
+							"pm.test(\"check first board is deleted successfully and status code is 200\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.equal(200)\r",
+							"});\r",
+							"\r",
+							"//  verify response time less than 1000 ms\r",
+							"pm.test(\"verify response time less than 200 ms\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000)\r",
+							"});\r",
+							"\r",
+							"// check Response Body contain a meaningful message\r",
+							"console.log(pm.response.json()._value);\r",
+							"pm.test(\"Response Body contain a meaningful message like ..board is removed successfully\",function(){\r",
+							"    pm.expect(pm.response.json()._value).to.not.equal(null)\r",
+							"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloBaseURL}}/1/boards/{{randomBoardID}}?key={{Key}}&token={{Token}}",
+					"host": [
+						"{{TrelloBaseURL}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{randomBoardID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{Key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{Token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

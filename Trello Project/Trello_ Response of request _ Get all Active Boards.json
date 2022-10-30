@@ -1,0 +1,141 @@
+{
+    "id": "62b0c5731ff5c445c200e3c3",
+    "aaId": "62b0c57142d926a01e51870f",
+    "activityBlocked": false,
+    "avatarHash": "1446abe4aeeffd2924d3629cf28ffd11",
+    "avatarUrl": "https://trello-members.s3.amazonaws.com/62b0c5731ff5c445c200e3c3/1446abe4aeeffd2924d3629cf28ffd11",
+    "bio": "",
+    "bioData": null,
+    "confirmed": true,
+    "fullName": "Amina s",
+    "idEnterprise": null,
+    "idEnterprisesDeactivated": [],
+    "idMemberReferrer": null,
+    "idPremOrgsAdmin": [],
+    "initials": "AS",
+    "memberType": "normal",
+    "nonPublic": {},
+    "nonPublicAvailable": true,
+    "products": [],
+    "url": "https://trello.com/aminas18",
+    "username": "aminas18",
+    "status": "disconnected",
+    "aaBlockSyncUntil": null,
+    "aaEmail": null,
+    "aaEnrolledDate": null,
+    "avatarSource": "none",
+    "credentialsRemovedCount": 0,
+    "domainClaimed": null,
+    "email": "aminas881988@gmail.com",
+    "goldSunsetFreeTrialIdOrganization": null,
+    "gravatarHash": "fb513c969af353878220314c6a75896a",
+    "idBoards": [
+        "62b3ab2f99bf0e5b73ea1208",
+        "62b3ab38b154f231fce5da1d",
+        "62b3ab53dabfb03234b79632",
+        "62b3ab672d1def640042a1f4",
+        "62b3ab736197da6035e7578d",
+        "62b3adc4cb056d78f7964b72"
+    ],
+    "idOrganizations": [
+        "62b0c57d73672a0e554ddc71"
+    ],
+    "idEnterprisesAdmin": [],
+    "limits": {
+        "boards": {
+            "totalPerMember": {
+                "status": "ok",
+                "disableAt": 4500,
+                "warnAt": 3600
+            }
+        },
+        "orgs": {
+            "totalPerMember": {
+                "status": "ok",
+                "disableAt": 850,
+                "warnAt": 680
+            }
+        }
+    },
+    "loginTypes": [
+        "atlassian"
+    ],
+    "marketingOptIn": {
+        "optedIn": true,
+        "date": "2022-06-20T19:07:32.373Z"
+    },
+    "messagesDismissed": [],
+    "oneTimeMessagesDismissed": [
+        "sent-possible-new-signup-event",
+        "close-menu-of-first-board",
+        "team-template-picker-62b0c57d73672a0e554ddc71"
+    ],
+    "prefs": {
+        "privacy": {
+            "fullName": "public",
+            "avatar": "public"
+        },
+        "sendSummaries": true,
+        "minutesBetweenSummaries": 60,
+        "minutesBeforeDeadlineToNotify": 1440,
+        "colorBlind": false,
+        "locale": "en-US"
+    },
+    "trophies": [],
+    "uploadedAvatarHash": null,
+    "uploadedAvatarUrl": null,
+    "premiumFeatures": [
+        "additionalBoardBackgrounds",
+        "additionalStickers",
+        "customBoardBackgrounds",
+        "customEmoji",
+        "customStickers",
+        "plugins"
+    ],
+    "isAaMastered": true,
+    "ixUpdate": "219",
+    "boards": [
+        {
+            "id": "62b3ab736197da6035e7578d",
+            "name": "API Test Board",
+            "closed": false,
+            "idOrganization": "62b0c57d73672a0e554ddc71",
+            "pinned": false
+        },
+        {
+            "id": "62b3adc4cb056d78f7964b72",
+            "name": "APIBoard",
+            "closed": false,
+            "idOrganization": "62b0c57d73672a0e554ddc71",
+            "pinned": false
+        },
+        {
+            "id": "62b3ab38b154f231fce5da1d",
+            "name": "New  Board",
+            "closed": false,
+            "idOrganization": "62b0c57d73672a0e554ddc71",
+            "pinned": false
+        },
+        {
+            "id": "62b3ab672d1def640042a1f4",
+            "name": "Test Automation Board",
+            "closed": false,
+            "idOrganization": "62b0c57d73672a0e554ddc71",
+            "pinned": false
+        },
+        {
+            "id": "62b3ab2f99bf0e5b73ea1208",
+            "name": "Test Board",
+            "closed": false,
+            "idOrganization": "62b0c57d73672a0e554ddc71",
+            "pinned": false
+        },
+        {
+            "id": "62b3ab53dabfb03234b79632",
+            "name": "UI project Board",
+            "closed": false,
+            "idOrganization": "62b0c57d73672a0e554ddc71",
+            "pinned": false
+        }
+    ]
+}
