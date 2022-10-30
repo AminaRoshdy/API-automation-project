@@ -1,0 +1,67 @@
+**API :  GET /api/v1/Authors
+
+TestCase(1):   Make sure the response is "200 OK".
+	Expected Result: code = 200 OK
+	Actual Result: code= 200 OK
+	Status: Pass
+ 
+TestCase(2): make sure response time should be less than 1000 ms
+	Expected Result: response time should be less than 1000 ms OK
+	Actual Result: response time= 500 ms
+	Status: Pass
+ 
+TestCase(3): Make sure Objects inside response contain, id, idBook, firstName, lastName.
+	Expected Result: the keys of objects inside response should be (id, idBook, firstName, lastName)
+	Actual Result: the keys of objects inside response are (id, idBook, firstName, lastName)
+	Status: Pass
+	
+TestCase(4): Make sure values of response objects not be null
+	Expected Result: values of all reponse objects not be null 
+	Actual Result: values of response objects are not null (code= 200 OK)
+	Status: Pass
+_____________________________________________________________________________________________
+
+**API : POST /api/v1/Authors.
+TestCase(1): verify add new Author successfully  .
+	Expected Result: post data of new author and status code = 200 OK 
+	Actual Result: code= 200 OK
+	Status: Pass
+	
+TestCase(2): verify( first name and last name) are mandtory when sent the request 
+	Expected Result: if attributes of (first name & last name) are missing, response code should be = 400
+	Actual Result: code= 400 OK
+	Status: Pass
+	
+TestCase(3): verify the request body include all attributes( id ,  idBook , Firstname, LastName)
+	Expected Result: status code= 200 , and test is passed 
+	Actual Result: status code= 200 
+	Status: Pass
+
+_______________________________________________________________________________________________
+
+** API : GET /api/v1/Authors/authors/books/{idBook}
+TestCase(1): verify assign randaom value to collection variable "idBook" .
+	Expected Result: get random value of idBook and assign it to a colection variable
+	Actual Result: assign random value to collection variable of idBook sucessfully
+	Status: Pass
+	
+TestCase(2): Searching with valid value of idBook (collection variable idBook) should return relative data in response body 
+	Expected Result: retuen all objects inside response realted to the value of idBook.
+	Actual Result:  all objects realted to the value of idBook are returned successfully 
+	              (the value of idBook of all objects inside response should equal to the inserted value of idBook  ) status code= 200 OK 
+	Status: Pass	
+
+ __________________________________________________________________________________________________
+ 
+ **API : PUT /api/v1/Authors/{id}
+TestCase(1): verify Update Author's data ( first name & last name) 
+	Expected Result: status code= 200 OK 
+	Actual Result: status code= 200 OK
+	Status: Pass 
+
+__________________________________________________________________________________________________
+**API: GET /api/v1/Authors/{id}
+TestCase(1): Get data of updated Author , and check attributes ( first name & last name) are updated successfully
+	Expected Result: Author's data( first name & last name) should be updated successfully
+	Actual Result: Author's data ( first name & last name) not be  updated  ( status code= 400)
+	Status: Fail
